@@ -1,21 +1,29 @@
 {
-	"name": "ahti",
-	"private": true,
-	"workspaces": [
-		"web",
-		"studio"
-	],
-	"engines": {
-		"node": ">=22.12"
-	},
-	"scripts": {
-		"dev": "concurrently -n web,studio -c cyan,magenta \"npm run dev -w web\" \"npm run dev -w studio\"",
-		"dev:web": "npm run dev -w web",
-		"dev:studio": "npm run dev -w studio",
-		"build": "npm run build --workspaces --if-present",
-		"lint": "npm run lint --workspaces --if-present"
-	},
-	"devDependencies": {
-		"concurrently": "^10.0.5"
-	}
+  "name": "ahti",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "sveltekit-app",
+    "studio"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=sveltekit-app\" \"npm run dev --workspace=studio\"",
+    "format": "prettier --cache --write .",
+    "postinstall": "npm --workspace sveltekit-app run prepare"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^2.0.1",
+    "@eslint/js": "^9.39.2",
+    "@sanity/eslint-config-studio": "^6.0.0",
+    "@sanity/prettier-config": "^3.0.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-svelte": "^3.14.0",
+    "globals": "^17.2.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-packagejson": "3.0.0",
+    "prettier-plugin-svelte": "^3.4.1",
+    "typescript-eslint": "^8.54.0"
+  }
 }

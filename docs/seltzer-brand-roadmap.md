@@ -35,10 +35,8 @@ Put each type in its own file under `studio/schemaTypes/`. Suggested set:
 | `page`          | Generic editor-built pages                     | title, slug, SEO, `pageBuilder` (array of sections)                                                                                                                                                         |
 | `campaign`      | Seasonal / launch campaigns                    | title, slug, dates, hero, featured flavours (refs), `pageBuilder`, SEO                                                                                                                                      |
 | `retailer`      | Where-to-buy entries                           | name, logo, type (grocery / online / on-premise), URL, regions, stocked flavours (refs)                                                                                                                     |
-| `recipe`        | Mocktails / cocktails using the seltzer        | title, slug, hero image, flavours used (refs), ingredients list, steps, prep time, tags                                                                                                                     |
 | `post`          | News / journal (already stubbed)               | title, slug, publishedAt, author, cover image, body, related flavours                                                                                                                                       |
-| `faq`           | Q&A entries                                    | question, answer, category                                                                                                                                                                                  |
-| `author`        | Journal authors                                | name, image, bio                                                                                                                                                                                            |
+| `aboutUs`       | Brand story                                    | question, answer,                                                                                                                                    |
 
 ### Reusable objects
 
@@ -76,9 +74,7 @@ Each section maps 1:1 to a Svelte component in `web/src/lib/components/sections/
 /                         → home (siteSettings + a "home" page doc)
 /flavors                  → all flavours, filter by productLine
 /flavors/[slug]           → flavour detail (themed by flavour colour)
-/recipes, /recipes/[slug]
 /where-to-buy             → retailer list/map, filter by flavour & region
-/journal, /journal/[slug] → posts
 /c/[slug]                 → campaign landing pages
 /[...slug]                → catch-all for editor-built `page` docs
 ```
@@ -117,7 +113,6 @@ Each section maps 1:1 to a Svelte component in `web/src/lib/components/sections/
 | **Store locator**             | `retailer` docs with geo points/regions            | Map (MapLibre/Leaflet) + filter by flavour                        |
 | **Limited drops / countdown** | `availableFrom/Until` on flavour/campaign           | Countdown component, auto-hide when expired                      |
 | **Nutrition & allergens**     | Structured `nutritionFacts` object                  | Accessible nutrition table, JSON-LD `Product` schema              |
-| **Recipes / mixology**        | `recipe` docs referencing flavours                  | Cross-links: flavour page ↔ recipes using it                     |
 | **Newsletter / drops alert**  | Section with copy + list ID                         | Form action → email provider (Klaviyo, Mailchimp)                |
 | **E-commerce (optional)**     | Flavours hold a Shopify product ID/handle           | Shopify Storefront API for price/stock/cart; Sanity for storytelling |
 | **Age / region gating**       | Only if you add alcoholic variants (hard seltzer)   | Gate in `hooks.server.ts`, per-market content                     |
@@ -156,7 +151,7 @@ Each section maps 1:1 to a Svelte component in `web/src/lib/components/sections/
    - Presentation tool + visual editing + draft preview
    - Structure Builder sidebar, validation and helpful field descriptions
 5. **Engagement**
-   - Recipes, where-to-buy, newsletter, campaigns
+   - Where-to-buy, newsletter, campaigns
    - SEO/JSON-LD, sitemap, analytics (Plausible/GA4), consent banner
 6. **Growth (optional)**
    - Shopify integration, flavour quiz, i18n, A/B-testable hero variants
