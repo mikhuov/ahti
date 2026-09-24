@@ -1,0 +1,21 @@
+{
+	"name": "ahti",
+	"private": true,
+	"workspaces": [
+		"web",
+		"studio"
+	],
+	"engines": {
+		"node": ">=22.12"
+	},
+	"scripts": {
+		"dev": "concurrently -n web,studio -c cyan,magenta \"npm run dev -w web\" \"npm run dev -w studio\"",
+		"dev:web": "npm run dev -w web",
+		"dev:studio": "npm run dev -w studio",
+		"build": "npm run build --workspaces --if-present",
+		"lint": "npm run lint --workspaces --if-present"
+	},
+	"devDependencies": {
+		"concurrently": "^10.0.5"
+	}
+}
