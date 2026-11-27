@@ -1,10 +1,9 @@
+import {siteSettingsQuery as query} from '$lib/sanity/queries'
+import type {SiteSettings} from '$lib/sanity/types'
 import type {LayoutServerLoad} from './$types'
 
-export const load: LayoutServerLoad = (event) => {
-  const {previewEnabled} = event.locals.sanity
-  // The `event.locals.sanity.previewEnabled` value received here is set by the
-  // helper function in `hooks.server.ts`. It indicates whether the app is in
-  // preview mode or not. As `event.locals` is only available on the server, we
-  // can expose the value to the client by returning it here.
-  return {previewEnabled}
+export const load: LayoutServerLoad = async ({locals}) => {
+  const {previewEnabled, loadQuery} = locals.sanity
+  const initial = await loadQuery<SiteSettings | null>(query)
+  return {previewEnabled, settings: {query, options: {initial}}}
 }

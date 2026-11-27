@@ -1,68 +1,19 @@
 <script lang="ts">
   import {useQuery} from '@sanity/sveltekit'
-  import Card from '../components/Card.svelte'
-  import Welcome from '../components/Welcome.svelte'
+  import Sections from '../components/Sections.svelte'
+  import type {HomePage} from '$lib/sanity/types'
+  import {getSiteSettings} from '$lib/siteSettings'
+  import {clean} from '$lib/utils/links'
   import type {PageProps} from './$types'
 
   const {data}: PageProps = $props()
   const query = $derived(useQuery(data))
-  const posts = $derived($query.data)
+  const home = $derived($query.data as HomePage | null | undefined)
+  const site = getSiteSettings()
 </script>
 
-<header>
-  <div class="header">
-    <span>Subscribe & Save</span>
-    |
-    <span>Free Shipping When Buying with 50€</span>
-  </div>
+<svelte:head>
+  <title>{clean(home?.title) || clean(site()?.siteName) || ''}</title>
+</svelte:head>
 
-  <div class="toolbar">
-    <span>Free Returns</span>
-    |
-    <span>Secure Payment</span>
-  </div>
-</header>
-
-
-  {#if posts?.length}
-    {#each posts as post}
-      <Card {post} />
-    {/each}
-  {:else}
-    <Welcome />
-  {/if} 
-
-<style>
-  header {
-    width: 100%;
-  }
-
-  .header,
-  .toolbar {
-    width: 100%;
-    box-sizing: border-box;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    gap: 1rem;
-
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-
-    height: 36px;
-  }
-
-  .header {
-    background-color: #000000;
-    color: #ffffff;
-  }
-
-  .toolbar {
-    background-color: #ffffff;
-    color: #000000;
-  }
-</style>
+<Sections sections={home?.sections} />

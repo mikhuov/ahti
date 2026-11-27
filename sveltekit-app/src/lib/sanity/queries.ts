@@ -1,17 +1,28 @@
-import type {PortableTextBlock} from '@portabletext/types'
-import type {ImageAsset, Slug} from '@sanity/types'
 import groq from 'groq'
 
-export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]`
-export const postsQuery = groq`*[_type == "post" && defined(slug.current)] | order(_createdAt desc)`
-export const toolbarQuery = groq`*[_type == "toolbar"][0]`
+const productCard = `{
+  _id, name, "slug": slug.current, italicName, tone, tagline, description, footnote,
+  pricePerCan, perCanLabel, "fromPrice": math::min(sizes[].price), addLabel, moreLabel, image,
+  backdrop
+}`
 
-export interface Post {
-  _type: 'post'
-  _createdAt: string
-  title?: string
-  slug: Slug
-  excerpt?: string
-  mainImage?: ImageAsset
-  body: PortableTextBlock[]
-}
+export const siteSettingsQuery = groq`*[_id == "siteSettings"][0]{
+  ...,
+  "products": *[_type == "product"] | order(order asc) ${productCard}
+}`
+
+const sections = `sections[]{
+  ...,
+  _type in ["rangeSection", "splitSection"] => {"products": products[]->${productCard}}
+}`
+
+export const homePageQuery = groq`*[_id == "homePage"][0]{..., ${sections}}`
+
+export const contentPageQuery = groq`*[_type == "page" && slug.current == $slug][0]{
+  title, description, ${sections}
+}`
+
+export const productPageQuery = groq`{
+  "product": *[_type == "product" && slug.current == $slug][0]{..., "slug": slug.current},
+  "others": *[_type == "product" && slug.current != $slug] | order(order asc) ${productCard}
+}`

@@ -1,5 +1,8 @@
-import blockContent from './blockContent'
-import post from './post'
-import toolbar from './toolbar'
+import homePage from './homePage'
+import link from './link'
+import page from './page'
+import product from './product'
+import {sectionTypes} from './sections'
+import siteSettings from './siteSettings'
 
-export const schemaTypes = [post, blockContent, toolbar]
+export const schemaTypes = [homePage, siteSettings, page, product, link, ...sectionTypes]
