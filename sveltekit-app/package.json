@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "prepare": "svelte-kit sync || echo ''",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "@sanity/image-url": "^2.0.3",

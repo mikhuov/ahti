@@ -1,11 +1,13 @@
-# ahti
+# SvelteKit + Sanity POC
 
-Brand site for a seltzer water brand: a SvelteKit site plus Sanity CMS. Built on Sanity's
-official template ([sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean)).
+A proof-of-concept example of a SvelteKit site with its content managed in Sanity. Pages are built
+from sections that editors can add, remove and reorder in the Studio, and the Presentation tool
+gives a live, click-to-edit preview of the site. Built on Sanity's official template
+([sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean)).
 
-| Folder           | What                                | Dev URL               |
-| ---------------- | ----------------------------------- | --------------------- |
-| `sveltekit-app/` | The website                         | http://localhost:5173 |
+| Folder           | What                                   | Dev URL               |
+| ---------------- | -------------------------------------- | --------------------- |
+| `sveltekit-app/` | The website                            | http://localhost:5173 |
 | `studio/`        | Sanity Studio, where content is edited | http://localhost:3333 |
 
 ## Setup
@@ -18,14 +20,15 @@ Needs Node.js 22.
    `sveltekit-app/.env`, then fill them in.
 3. Run `npm install`, then `npm run dev`.
 
+Demo content lives in `studio/seed/`; see the README there.
+
 ## Scripts (from the repo root)
 
-| Command                            | Description                     |
-| ---------------------------------- | ------------------------------- |
-| `npm run dev`                      | Run the site and Studio together |
-| `npm run format`                   | Format everything with Prettier |
-| `npm run check -w sveltekit-app`   | Type-check the site             |
-| `npm run build -w sveltekit-app`   | Build the site                  |
-| `npm run deploy -w studio`         | Deploy the Studio               |
-
-See [docs/technical-guide.md](docs/technical-guide.md) for how to build out the brand site.
+| Command                          | Description                                    |
+| -------------------------------- | ---------------------------------------------- |
+| `npm run dev`                    | Run the site and Studio together               |
+| `npm run format`                 | Format everything with Prettier                |
+| `npm run check -w sveltekit-app` | Type-check the site                            |
+| `npm run build -w sveltekit-app` | Build the site                                 |
+| `npm run smoke -w sveltekit-app` | Smoke-test the running dev server              |
+| `npm run deploy -w studio`       | Deploy the Studio                              |
